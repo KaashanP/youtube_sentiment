@@ -37,3 +37,71 @@ stages:
       md5: a2bbccdc23dd271231099f8d5c99ff87.dir
       size: 5098055
       nfiles: 2
+  model_building:
+    cmd: python src/model/model_building.py
+    deps:
+    - path: data/interim/train_processed.csv
+      hash: md5
+      md5: 86284f4698366b0f2ee05c211c0e9453
+      size: 4104889
+    - path: src/model/model_building.py
+      hash: md5
+      md5: 7535a489e792c486bd48d008c4e673c4
+      size: 5474
+    params:
+      params.yaml:
+        model_building.learning_rate: 0.09
+        model_building.max_depth: 20
+        model_building.max_features: 1000
+        model_building.n_estimators: 367
+        model_building.ngram_range:
+        - 1
+        - 3
+    outs:
+    - path: lgbm_model.pkl
+      hash: md5
+      md5: 1f93562c6e92bb778398cfc6b04f6557
+      size: 3886834
+    - path: tfidf_vectorizer.pkl
+      hash: md5
+      md5: 55655f5e9d140a8a4bed3fe1ef1d1d1a
+      size: 36872
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+    - path: data/interim/test_processed.csv
+      hash: md5
+      md5: 5b260b8114240fb9c541c0d07b150b14
+      size: 993166
+    - path: data/interim/train_processed.csv
+      hash: md5
+      md5: 86284f4698366b0f2ee05c211c0e9453
+      size: 4104889
+    - path: lgbm_model.pkl
+      hash: md5
+      md5: 1f93562c6e92bb778398cfc6b04f6557
+      size: 3886834
+    - path: src/model/model_evaluation.py
+      hash: md5
+      md5: 955fba201706be6f76068dd2fa413d90
+      size: 7168
+    - path: tfidf_vectorizer.pkl
+      hash: md5
+      md5: 55655f5e9d140a8a4bed3fe1ef1d1d1a
+      size: 36872
+    outs:
+    - path: experiment_info.json
+      hash: md5
+      md5: fecf9ca491fcbdac7b1f9f8667a5aee1
+      size: 84
+  model_registration:
+    cmd: python src/model/register_model.py
+    deps:
+    - path: experiment_info.json
+      hash: md5
+      md5: fecf9ca491fcbdac7b1f9f8667a5aee1
+      size: 84
+    - path: src/model/register_model.py
+      hash: md5
+      md5: c93e3deec0bf3cccf3f8222f0ef94b4b
+      size: 2427

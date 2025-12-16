@@ -77,3 +77,4 @@ htmlcov/
 
 # Docker
 docker-compose.override.yml
+/experiment_info.json
