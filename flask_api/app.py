@@ -94,7 +94,7 @@ def home():
 def predict_with_timestamps():
     data = request.json
     comments_data = data.get('comments')
-    
+
     if not comments_data:
         return jsonify({"error": "No comments provided"}), 400
 
@@ -104,21 +104,21 @@ def predict_with_timestamps():
 
         # Preprocess each comment before vectorizing
         preprocessed_comments = [preprocess_comment(comment) for comment in comments]
-        
+
         # Transform comments using the vectorizer
         transformed_comments = vectorizer.transform(preprocessed_comments)
 
         # Convert the sparse matrix to dense format
-        dense_comments = transformed_comments.toarray()  # Convert to dense array
-        
+        dense_comments = transformed_comments.toarray()
+
         # Make predictions
-        predictions = model.predict(dense_comments).tolist()  # Convert to list
-        
+        predictions = model.predict(dense_comments).tolist()
+
         # Convert predictions to strings for consistency
         predictions = [str(pred) for pred in predictions]
     except Exception as e:
         return jsonify({"error": f"Prediction failed: {str(e)}"}), 500
-    
+
     # Return the response with original comments, predicted sentiments, and timestamps
     response = [{"comment": comment, "sentiment": sentiment, "timestamp": timestamp} for comment, sentiment, timestamp in zip(comments, predictions, timestamps)]
     return jsonify(response)
@@ -129,8 +129,8 @@ def predict_with_timestamps():
 def predict():
     data = request.json
     comments = data.get('comments')
-    print("i am the comment: ",comments)
-    print("i am the comment type: ",type(comments))
+#    print("i am the comment: ",comments)
+#    print("i am the comment type: ",type(comments))
     
     if not comments:
         return jsonify({"error": "No comments provided"}), 400
@@ -326,4 +326,4 @@ def generate_trend_graph():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)

@@ -40,6 +40,15 @@ ENV/
 # Environment variables
 .env
 .env.local
+.env.*.local
+
+# AWS Credentials
+.aws/
+*.pem
+
+# Sensitive configuration
+config/secrets.yaml
+secrets/
 
 # MLflow
 mlruns/
