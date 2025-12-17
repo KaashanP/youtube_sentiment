@@ -50,6 +50,9 @@ ENV/
 config/secrets.yaml
 secrets/
 
+# Chrome Extension Config
+yt-chrome-plugin-frontend/config.js
+
 # MLflow
 mlruns/
 mlartifacts/

@@ -127,9 +127,8 @@ def save_model_info(run_id: str, model_path: str, file_path: str) -> None:
 
 
 def main():
-    # TODO: Set your MLflow tracking URI (or use environment variable)
-    # mlflow.set_tracking_uri(os.getenv('MLFLOW_TRACKING_URI', 'http://localhost:5000'))
-    mlflow.set_tracking_uri("http://YOUR_MLFLOW_SERVER:5000/")
+    # Load MLflow tracking URI from environment variable
+    mlflow.set_tracking_uri(os.getenv('MLFLOW_TRACKING_URI', 'http://localhost:5000'))
 
     mlflow.set_experiment('dvc-pipeline-runs')
     
